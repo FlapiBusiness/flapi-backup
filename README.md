@@ -9,6 +9,7 @@ Ce projet utilise **GitHub Actions** pour automatiser l'exécution du processus 
 
 ---
 
+<br /><br />
 
 ## 🛠️ **Fonctionnalités**
 
@@ -28,6 +29,8 @@ Ce projet utilise **GitHub Actions** pour automatiser l'exécution du processus 
 
 ---
 
+<br /><br />
+
 ## 📂 **Structure du projet**
 
 ```plaintext
@@ -39,6 +42,8 @@ Ce projet utilise **GitHub Actions** pour automatiser l'exécution du processus 
 ```
 
 ---
+
+<br /><br />
 
 ## 🔧 **Configuration**
 
@@ -59,6 +64,8 @@ Le workflow est exécuté automatiquement toutes les **12 heures** à 00h00 et 1
 
 ---
 
+<br /><br />
+
 ## 🛡️ **Redondance des sauvegardes**
 
 Les sauvegardes sont envoyées sur deux serveurs FTP distincts :
@@ -66,6 +73,8 @@ Les sauvegardes sont envoyées sur deux serveurs FTP distincts :
 2. **Serveur FTP OVH** : Sauvegarde externe pour assurer une redondance sécurisée.
 
 ---
+
+<br /><br />
 
 ## 📥 **Téléchargement des sauvegardes**
 

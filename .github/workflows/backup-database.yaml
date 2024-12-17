@@ -52,14 +52,14 @@ jobs:
           state-name: .ftp-deploy-sync-state-all-databases-${{ env.CURRENT_DATETIME }}.json
 
       # La CI/CD doit être run exclusivement sur le server dédié OVH pour que le FTP soit possible ci-dessous
-      #- name: Deploy all database backup (.sql.gz) to FTP - Server OVH
-      #  uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-          #  with:
-          #server: ${{ secrets.OVH_FTP_HOST }}
-          #username: ${{ secrets.OVH_FTP_USERNAME }}
-          #password: ${{ secrets.OVH_FTP_PASSWORD }}
-          #port: ${{ secrets.OVH_FTP_PORT }}
-          #protocol: ftp
-          #local-dir: ./backup-databases/
-          #server-dir: /backup-database/mariadb/
-          #state-name: .ftp-deploy-sync-state-all-databases-${{ env.CURRENT_DATETIME }}.json
+      - name: Deploy all database backup (.sql.gz) to FTP - Server OVH
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_FTP_HOST }}
+          username: ${{ secrets.OVH_FTP_USERNAME }}
+          password: ${{ secrets.OVH_FTP_PASSWORD }}
+          port: ${{ secrets.OVH_FTP_PORT }}
+          protocol: ftp
+          local-dir: ./backup-databases/
+          server-dir: /backup-database/mariadb/
+          state-name: .ftp-deploy-sync-state-all-databases-${{ env.CURRENT_DATETIME }}.json

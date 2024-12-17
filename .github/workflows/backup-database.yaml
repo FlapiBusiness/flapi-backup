@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 # Exécuté le runner sur le serveur dédié OVH puisqu'il faut autorisé l'IP du serveur côté CPanel O2Switch
+# La CI/CD doit être run exclusivement sur le server dédié OVH pour que le FTP soit possible vers OVH
 jobs:
   backup_databases:
     runs-on: self-hosted
@@ -51,7 +52,6 @@ jobs:
           server-dir: backup-database/mariadb/
           state-name: .ftp-deploy-sync-state-all-databases-${{ env.CURRENT_DATETIME }}.json
 
-      # La CI/CD doit être run exclusivement sur le server dédié OVH pour que le FTP soit possible ci-dessous
       - name: Deploy all database backup (.sql.gz) to FTP - Server OVH
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

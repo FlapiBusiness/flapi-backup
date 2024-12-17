@@ -38,7 +38,7 @@ jobs:
       - name: Set the current date and time
         run: echo "CURRENT_DATETIME=$(date +%d-%m-%Y-%H-%M-%S)" >> $GITHUB_ENV
 
-      - name: Deploy backup .sql.gz to FTP - Server O2Switch
+      - name: Deploy all database backup (.sql.gz) to FTP - Server O2Switch
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.O2SWITCH_FTP_HOST }}

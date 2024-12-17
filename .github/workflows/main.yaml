@@ -6,6 +6,7 @@ on:
     - cron: '0 */12 * * *'
   workflow_dispatch:
 
+# Exécuté le runner sur le serveur dédié OVH puisqu'il faut autorisé l'IP du serveur côté CPanel O2Switch
 jobs:
   backup_databases:
     runs-on: self-hosted

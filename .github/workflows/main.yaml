@@ -8,8 +8,8 @@ on:
 
 jobs:
   backup_databases:
-  runs-on: self-hosted
-  steps:
+    runs-on: self-hosted
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 

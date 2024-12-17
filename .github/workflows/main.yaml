@@ -1,0 +1,51 @@
+name: Backup All MariaDB Databases O2Switch
+
+# Exécuté toutes les 12 heures, à 00h00 et 12h00
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+jobs:
+  backup_databases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install MariaDB Client and Gzip
+        run: sudo apt-get update && sudo apt-get install -y gzip mariadb-client
+
+      - name: List and Backup All Databases
+        env:
+          DB_HOST: ${{ secrets.O2SWITCH_BACKUP_DATABASE_HOST }}
+          DB_USER: ${{ secrets.O2SWITCH_BACKUP_DATABASE_USERNAME }}
+          DB_PASSWORD: ${{ secrets.O2SWITCH_BACKUP_DATABASE_PASSWORD }}
+        run: |
+          # Créer le dossier de sauvegarde
+          mkdir backup-databases && cd backup-databases
+          
+          # Lister toutes les bases de données
+          DBS=$(mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema|mysql|sys)")
+          
+          # Boucler sur chaque base pour créer une sauvegarde individuelle
+          for DB in $DBS; do
+            echo "Backup de la base : $DB"
+            FILENAME="${DB}_backup-$(date +%d-%m-%Y-%H-%M-%S).sql.gz"
+            mysqldump -h $DB_HOST -u $DB_USER -p$DB_PASSWORD --databases $DB | gzip > $FILENAME
+          done
+
+      - name: Set the current date and time
+        run: echo "CURRENT_DATETIME=$(date +%d-%m-%Y-%H-%M-%S)" >> $GITHUB_ENV
+
+      - name: Deploy backup .sql.gz to FTP - Server O2Switch
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.O2SWITCH_FTP_HOST }}
+          username: ${{ secrets.O2SWITCH_FTP_USERNAME }}
+          password: ${{ secrets.O2SWITCH_FTP_PASSWORD }}
+          port: ${{ secrets.O2SWITCH_FTP_PORT }}
+          protocol: ftp
+          local-dir: ./backup-databases/
+          server-dir: backup-database/mariadb/
+          state-name: .ftp-deploy-sync-state-all-databases-${{ env.CURRENT_DATETIME }}.json

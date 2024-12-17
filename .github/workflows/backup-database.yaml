@@ -32,7 +32,7 @@ jobs:
           
           # Boucler sur chaque base pour créer une sauvegarde individuelle
           for DB in $DBS; do
-            echo "Backup de la base : $DB"
+            echo "Backup de la base de donnée : $DB"
             FILENAME="${DB}_backup-$(date +%d-%m-%Y-%H-%M-%S).sql.gz"
             mysqldump -h $DB_HOST -u $DB_USER -p$DB_PASSWORD --databases $DB | gzip > $FILENAME
           done

@@ -1,6 +1,11 @@
 
 # **Flapi - Backup Database**
 
+## 🚀 **IMPORTANT**
+- A partir de 60 jours d'inactivité dans le repo, les workflows ne s'execute plus, il faut revenir sur la page de repository pour réactiver.
+- A faire tout les 60 jours.
+
+
 ## 🚀 **Description**
 
 **Flapi - Backup Database** est un workflow automatisé qui permet d'effectuer des sauvegardes régulières des bases de données MariaDB/MySQL d'un serveur O2Switch. Chaque base de données est sauvegardée individuellement dans un fichier compressé (`.sql.gz`), puis transférée sur **deux serveurs FTP distincts** : **OVH** et **O2Switch** pour garantir la redondance des sauvegardes.
